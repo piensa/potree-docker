@@ -1,14 +1,15 @@
 FROM httpd:2.4
 
-RUN apt-get -qq update && \
-  apt-get -y -qq install supervisor  && \
-  apt-get install -y -qq build-essential cmake git && \
-  echo "deb http://ftp.us.debian.org/debian testing main contrib non-free" > /etc/apt/sources.list.d/testing.list && \
-  apt-get -qq update && \
-  apt-get install -y -qq -t testing g++-6 && \
-  update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-6 10 && \
-  apt-get clean && \
-  rm -rf /var/lib/apt/lists/*
+RUN apt-get -qq update
+RUN apt-get -y -qq install supervisor 
+RUN apt-get install -y -qq build-essential cmake git
+RUN echo "deb http://ftp.us.debian.org/debian testing main contrib non-free" > /etc/apt/sources.list.d/testing.list 
+RUN apt-get -qq update 
+RUN apt-get install -y  g++-7
+RUN apt-get install -y -qq -t testing g++-7
+RUN update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-7 10
+RUN apt-get clean
+RUN rm -rf /var/lib/apt/lists/*
 
 RUN mkdir -p  ~/dev/workspaces/lastools && \
   cd ~/dev/workspaces/lastools && \
